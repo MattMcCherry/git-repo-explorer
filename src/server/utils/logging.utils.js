@@ -19,7 +19,7 @@ const storeLogs = async logs => new Promise((resolve, reject) => {
       resolve();
     });
   } else {
-    reject(new Error('No request object provided'));
+    reject(new Error('No logs object provided'));
   }
 });
 
