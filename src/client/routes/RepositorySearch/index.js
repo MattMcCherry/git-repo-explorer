@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Input, Button, Box } from '@material-ui/core';
+import {
+  Input, Button, Box, Link, Typography
+} from '@material-ui/core';
 
 const RepositorySearch = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -8,7 +10,6 @@ const RepositorySearch = () => {
   const getSearchResults = async () => {
     try {
       const data = await fetch(`./api/search/repositories?searchTerm=${searchTerm}`).then(response => response.json());
-      console.log(data.items);
       setResults(data.items);
     } catch (err) {
       console.log(err);
@@ -19,7 +20,7 @@ const RepositorySearch = () => {
     <Box>
       <Input autoFocus onKeyUp={event => setSearchTerm(event.target.value)}>Hello world!</Input>
       <Button onClick={getSearchResults}>Search</Button>
-      {results > 0 && (<span>we have some results</span>)}
+      {results > 0 && (results.map(result => (<Typography><Link to={{ pathname: '/repo', state: { result } }}>{result.name}</Link></Typography>)))}
     </Box>
   );
 };
