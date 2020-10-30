@@ -9,7 +9,7 @@ const App = () => {
   const getSearchResults = async () => {
     try {
       const data = await fetch(`./api/search/repositories?searchTerm=${searchTerm}`).then(response => response.json());
-      setResults(data.results);
+      setResults(data.items);
     } catch (err) {
       console.log(err);
     }
@@ -19,7 +19,7 @@ const App = () => {
     <Box>
       <Input autoFocus onKeyUp={event => setSearchTerm(event.target.value)}>Hello world!</Input>
       <Button onClick={getSearchResults}>Search</Button>
-      {results.length > 0 && (<span>we have some results</span>)}
+      {results > 0 && (<span>we have some results</span>)}
     </Box>
   );
 };

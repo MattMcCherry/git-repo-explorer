@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 
 const config = require('./config/config');
 const logging = require('./utils/logging.utils');
+const gitController = require('./controllers/git.controller');
 
 const app = express();
 
@@ -15,8 +16,10 @@ app.use(bodyParser.json());
 app.get('/api/search/repositories', async (req, res) => {
   try {
     await logging.logSearchRequest(req.query.searchTerm || null);
-    res.send({ results: [{ name: 'result' }] });
+    const searchResults = await gitController.search_respositories(req.query.searchTerm);
+    res.send(searchResults);
   } catch (err) {
+    console.log(err);
     res.status(500).send(err);
   }
 });
