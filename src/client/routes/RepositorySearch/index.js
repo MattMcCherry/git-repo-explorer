@@ -59,7 +59,11 @@ const RepositorySearch = () => {
       </Grid>
       <Box className={styles.resultsContainer}>
         {isLoading && <span>Loading...</span>}
-        {!isLoading && results.length > 0 && (results.map(result => (<Box className={styles.resultContainer}><Typography key={result.id}><Link to={`/repo/${result.full_name}`}>{result.name}</Link></Typography></Box>)))}
+        {!isLoading && results.length > 0 && (results.map(result => (
+          <Box className={styles.resultContainer} key={result.id}>
+            <Typography><Link to={`/repo/${result.full_name}`}>{result.name}</Link></Typography>
+          </Box>
+        )))}
         {!isLoading && results.length === 0 && <span>No results to show</span>}
       </Box>
     </Box>
