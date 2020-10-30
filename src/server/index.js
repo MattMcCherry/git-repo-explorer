@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.get('/api/search/repositories', async (req, res) => {
   try {
     await logging.logSearchRequest(req.query.searchTerm || null);
-    res.send({ message: 'Hello world!' });
+    res.send({ results: [{ name: 'result' }] });
   } catch (err) {
     res.status(500).send(err);
   }
