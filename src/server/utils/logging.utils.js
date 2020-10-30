@@ -23,7 +23,7 @@ const storeLogs = async logs => new Promise((resolve, reject) => {
   }
 });
 
-exports.logSearchRequest = async (searchTerm) => {
+exports.log_search_request = async (searchTerm) => {
   try {
     const data = await getLogs();
     const logs = JSON.parse(data);

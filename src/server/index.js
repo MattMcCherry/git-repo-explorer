@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 app.get('/api/search/repositories', async (req, res) => {
   try {
-    await logging.logSearchRequest(req.query.searchTerm || null);
+    await logging.log_search_request(req.query.searchTerm || null);
     const searchResults = await gitController.search_respositories(req.query.searchTerm);
     res.send(searchResults);
   } catch (err) {
