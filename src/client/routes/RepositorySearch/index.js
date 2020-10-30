@@ -61,7 +61,14 @@ const RepositorySearch = () => {
         {isLoading && <span>Loading...</span>}
         {!isLoading && results.length > 0 && (results.map(result => (
           <Box className={styles.resultContainer} key={result.id}>
-            <Typography><Link to={`/repo/${result.full_name}`}>{result.name}</Link></Typography>
+            <Typography>
+              <Link to={`/repo/${result.full_name}`}>
+                {result.name}
+                (
+                {result.stargazers_count}
+                )
+              </Link>
+            </Typography>
           </Box>
         )))}
         {!isLoading && results.length === 0 && <span>No results to show</span>}

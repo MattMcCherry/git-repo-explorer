@@ -3,6 +3,7 @@ import {
   Box, Button, makeStyles, Grid, Typography
 } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
+import * as moment from 'moment';
 
 const RepositoryDetails = () => {
   const { owner, repo } = useParams();
@@ -18,6 +19,9 @@ const RepositoryDetails = () => {
       borderRadius: '10px',
       padding: '1rem',
     },
+    detailsContainer: {
+      marginTop: '1.5rem',
+    }
   }))();
 
   const getData = async () => {
@@ -26,7 +30,7 @@ const RepositoryDetails = () => {
     }
     setLoading(true);
     try {
-      const repoDetails = await fetch(`https://api.github.com/repo/${owner}/${repo}`).then(response => response.json());
+      const repoDetails = await fetch(`https://api.github.com/repos/${owner}/${repo}`).then(response => response.json());
       setData(repoDetails);
     } catch (err) {
       console.log(err);
@@ -45,12 +49,33 @@ const RepositoryDetails = () => {
       </Button>
       {isLoading && <span>Loading...</span>}
       {!isLoading && data && (
-      <Grid container>
-        <Grid item xs={12} sm={9}>
+      <Grid container className={styles.detailsContainer}>
+        <Grid item xs={12} sm={12}>
           <Typography variant="h3">{data.name}</Typography>
         </Grid>
-        <Grid item xs={6} sm={3}>
-          <Typography variant="h3">.</Typography>
+        <Grid item xs={12} sm={6}>
+          <Typography variant="h5">
+            Language:
+            {data.language}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Typography variant="h5">
+            Stars:
+            {data.stargazers_count}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Typography variant="h5">
+            Watchers:
+            {data.watchers_count}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Typography variant="h5">
+            Last updated:
+            {moment(data.updated_at).format('DD-MM-YYYY')}
+          </Typography>
         </Grid>
       </Grid>
       )}

@@ -11,6 +11,6 @@ yarn install
 yarn run dev
 ```
 
-##
+## Additional Info
 
-Tests have just been done as pseudo code within the \_\_test\_\_ folders of the routes due to time constraints.
+- React tests have just been done as pseudo code within the \_\_test\_\_ folders of the routes due to time constraints.
