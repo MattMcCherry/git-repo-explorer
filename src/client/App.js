@@ -1,27 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './app.css';
-import { Input, Button, Box } from '@material-ui/core';
+import {
+  Box, CssBaseline
+} from '@material-ui/core';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
+import RepositorySearch from './routes/RepositorySearch';
+import RepositoryDetails from './routes/RepositoryDetails';
 
-const App = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [results, setResults] = useState([]);
-
-  const getSearchResults = async () => {
-    try {
-      const data = await fetch(`./api/search/repositories?searchTerm=${searchTerm}`).then(response => response.json());
-      setResults(data.items);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  return (
-    <Box>
-      <Input autoFocus onKeyUp={event => setSearchTerm(event.target.value)}>Hello world!</Input>
-      <Button onClick={getSearchResults}>Search</Button>
-      {results > 0 && (<span>we have some results</span>)}
-    </Box>
-  );
-};
+const App = () => (
+  <>
+    <CssBaseline />
+    <Router>
+      <Box>
+        <Box>
+          <Switch>
+            <Route exact path="/">
+              <RepositorySearch />
+            </Route>
+            <Route path="/repo">
+              <RepositoryDetails />
+            </Route>
+          </Switch>
+        </Box>
+      </Box>
+    </Router>
+  </>
+);
 
 export default App;
