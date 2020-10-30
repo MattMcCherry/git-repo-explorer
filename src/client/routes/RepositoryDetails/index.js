@@ -24,23 +24,22 @@ const RepositoryDetails = () => {
     }
   }))();
 
-  const getData = async () => {
-    if (isLoading || data) {
-      return;
-    }
-    setLoading(true);
-    try {
-      const repoDetails = await fetch(`https://api.github.com/repos/${owner}/${repo}`).then(response => response.json());
-      setData(repoDetails);
-    } catch (err) {
-      console.log(err);
-    }
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const getData = async () => {
+      if (isLoading || data) {
+        return;
+      }
+      setLoading(true);
+      try {
+        const repoDetails = await fetch(`https://api.github.com/repos/${owner}/${repo}`).then(response => response.json());
+        setData(repoDetails);
+      } catch (err) {
+        console.log(err);
+      }
+      setLoading(false);
+    };
     getData();
-  }, []);
+  }, [isLoading]);
 
   return (
     <Box className={styles.container}>
